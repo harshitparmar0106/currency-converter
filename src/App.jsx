@@ -4,9 +4,9 @@ import InputBox from "./components/InputBox"
 
 function App() {
 
-  const [amount, setAmount] = useState(0)
-  const [from, setFrom] =useState("usd")
-  const [to, setTo] =useState("inr")
+  const [amount, setAmount] = useState()
+  const [from, setFrom] =useState("inr")
+  const [to, setTo] =useState("usd")
   const [convertedAmount, setConvertedAmount] = useState(0)
   const currencyInfo = useCurrencyInfo(from)
 
@@ -20,6 +20,9 @@ function App() {
   }
 
   const convert = () => {setConvertedAmount(amount * currencyInfo[to])}
+  console.log(amount,"amount")
+  console.log(currencyInfo,"currencyInfo")
+  console.log(to,"to")
 
   return (
     <div className="w-full h-screen flex flex-wrap justify-center items-center">
@@ -35,8 +38,8 @@ function App() {
                   label ="From"
                   amount={amount}
                   currencyOptions={options}
-                  onCurrencyChange={(currency) => setAmount(amount)}
-                  seletCurrency = {from}
+                  onCurrencyChange={(currency) => setFrom(currency)}
+                  selectCurrency = {from}
                   onAmountChange={(amount) => setAmount(amount)}
                 />
                 <button type="button" className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5" onClick={swap}>
@@ -49,12 +52,12 @@ function App() {
                   amount={convertedAmount}
                   currencyOptions={options}
                   onCurrencyChange={(currency) => setTo(currency)}
-                  seletCurrency = {from}
+                  selectCurrency = {to}
                   amountDisable
                 />
               </div>
-              <button type="submit" className="w-full border-2 border-white rounded-lg bg-blue-600 text-ehite px-4 py-3" onClick={convert}>
-                  Convert {to.toUpperCase()} to {from.toUpperCase()}
+              <button type="submit" className="w-full border-2 border-white rounded-lg bg-blue-600 text-white px-4 py-3" onClick={convert}>
+                  Convert {from.toUpperCase()} to {to.toUpperCase()}
                 </button>
             </form>
 
